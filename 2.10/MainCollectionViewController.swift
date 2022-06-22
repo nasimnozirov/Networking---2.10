@@ -11,7 +11,7 @@ import UIKit
 
 enum Link: String {
 case imageURL = "https://cs14.pikabu.ru/post_img/2022/05/26/5/1653546000118641678.jpg"
-case courseURL = "https://v2.jokeapi.dev/joke/Any?safe-mode"
+case courseURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
 }
 
 enum UserAction: String, CaseIterable {
@@ -23,77 +23,32 @@ enum UserAction: String, CaseIterable {
 
 class MainCollectionViewController: UICollectionViewController {
 
+//    тут мы с помощью гетра allCases массив вернули массив из enum UserAction
     let userActions = UserAction.allCases
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//
-//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-//
-//
-//    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        userActions.count
+        userActions.count // количество ячеек будет равно количество элементов нашего массива
     }
 
+//    создание ячейки
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? UserActionCell else { return UICollectionViewCell() }
-        cell.userActionLabel.text = userActions[indexPath.item].rawValue
+        guard  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? UserActionCell else { return UICollectionViewCell() }  // кастим до типа нашего костомного ячейки(а и наче не смогли бы до label достучится
+        cell.userActionLabel.text = userActions[indexPath.item].rawValue // присваиваем к label значение массива через [indexPath.item].rawValue
     
         return cell
     }
 
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let userAction = userActions[indexPath.item]
-        switch userAction {
-        case .showImage: performSegue(withIdentifier: "showImage", sender: nil)
-        case .JsonDecoder: fetchCourses()
+        let userAction = userActions[indexPath.item] // определяем по какой ячейке табнули
+        switch userAction { // после определение с помощью switch мы определяем действия по нажатию на ячейку
+        case .showImage: performSegue(withIdentifier: "showImage", sender: nil) //переходим 
+        case .JsonDecoder: performSegue(withIdentifier: "showTableView", sender: nil) //переходим
         }
     }
     
-    // MARK: - Private Methods
-    private func successAlert() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(
-                title: "Success",
-                message: "You can see the results in the Debug aria",
-                preferredStyle: .alert
-            )
-            
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okAction)
-            self.present(alert, animated: true)
-        }
-    }
-    
-    private func failedAlert() {
-        DispatchQueue.main.async {
-            let alert = UIAlertController(
-                title: "Failed",
-                message: "You can see error in the Debug aria",
-                preferredStyle: .alert
-            )
-            
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okAction)
-            self.present(alert, animated: true)
-        }
-    }
-
+  
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout  (тут мы настраиваем ячейки чтобы они в зависимости от экрана выгл норм
@@ -114,11 +69,11 @@ extension MainCollectionViewController {
                 return
             }
             do {
-                let course = try JSONDecoder().decode(Course.self, from: data)
-                self.successAlert()
+                let course = try JSONDecoder().decode(Cocktail.self, from: data)
+            
                 print(course)
             } catch let error {
-                self.failedAlert()
+           
                 print(error.localizedDescription)
             }
         }.resume()

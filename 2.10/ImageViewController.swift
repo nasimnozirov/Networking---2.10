@@ -34,6 +34,4 @@ class ImageViewController: UIViewController {
             
         }.resume()
     }
-    
-    
 }

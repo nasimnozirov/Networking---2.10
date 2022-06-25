@@ -31,7 +31,6 @@ class ImageViewController: UIViewController {
                 self.imageView.image = image
                 self.activityIndicator.stopAnimating()
             }
-            
         }.resume()
     }
 }

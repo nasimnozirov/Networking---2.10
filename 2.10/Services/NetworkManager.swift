@@ -11,7 +11,7 @@ class NetworkManager {
     
     static  let shared = NetworkManager()
     
-     func fetchData(_ completion: @escaping (Drink) -> ()) {
+    func fetchData(_ completion: @escaping (Drink) -> ()) {
         guard let url = URL(string: "\(Link.courseURL.rawValue)") else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, error in

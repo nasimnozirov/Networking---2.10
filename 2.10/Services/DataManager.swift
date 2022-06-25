@@ -9,7 +9,7 @@ import Foundation
 
 class DataManager {
     
-   static let shared = DataManager()
+    static let shared = DataManager()
     
     let cocktailImages = [
         "image1",

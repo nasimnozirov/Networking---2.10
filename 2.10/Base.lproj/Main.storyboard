@@ -121,6 +121,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="t4O-fo-s2R" kind="show" id="kOS-rY-vZ0"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -128,9 +131,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Cocktails" largeTitleDisplayMode="always" id="FD0-IT-hgf"/>
-                    <connections>
-                        <segue destination="t4O-fo-s2R" kind="show" identifier="cell" id="vur-e9-1aF"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZIv-Rp-iGp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

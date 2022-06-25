@@ -8,7 +8,7 @@
 import UIKit
 
 class DrinkTableViewController: UITableViewController {
-
+    
     var cocktails: [Cocktail] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -24,14 +24,14 @@ class DrinkTableViewController: UITableViewController {
             self.cocktails = drink.drinks
         }
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cocktails.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         var content = cell.defaultContentConfiguration()
         let cocktail = cocktails[indexPath.row]
         content.text = cocktail.strDrink ?? "?"
@@ -41,12 +41,8 @@ class DrinkTableViewController: UITableViewController {
         cell.contentConfiguration = content
         
         return cell
-}
-//    // MARK: - Table View Delegate
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 180
-//    }
-//    
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailsVC = segue.destination as? CocktailDetailsViewController else { return }
         if let indexPath = tableView.indexPathForSelectedRow {
